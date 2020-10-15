@@ -23,7 +23,7 @@ const game = () => {
         const computerHand = document.querySelector('.computer-hand');
 
         // Computer Options
-        const computerOptions = [ 'rock', 'paper', 'scissors'];
+        const computerOptions = ['rock', 'paper', 'scissors'];
 
         choices.forEach(option => {
             option.addEventListener('click', function() {
@@ -35,13 +35,22 @@ const game = () => {
                 // here is where we call compareChoices
                 compareChoices(this.textContent, computerChoice);
 
-                // Update Imges
-                playerHand.scr = `./assets/${this.textContent}.png`;
+                // Update Images
+                playerHand.src = `./assets/${this.textContent}.png`;
 
-                computerHand.scr = `./assets/${this.textContent}.png`
+                computerHand.src = `./assets/${this.textContent}.png`
 
             })
         })
+    }
+
+    const updateScore = () => {
+        const playerWinCount = document.querySelector('.player-score');
+        const computerWinCount = document.querySelector('.computer-score');
+
+        playerWinCount.textContent = playerScore;
+        computerWinCount.textContent = computerScore;
+
     }
 
     const compareChoices = (playerChoice, computerChoice) => {
@@ -59,9 +68,13 @@ const game = () => {
         if (playerChoice === 'rock') {
             if (computerChoice === 'scissors') {
                 winner.textContent = 'Player Wins';
+                playerScore++;
+                updateScore();
                 return;
             } else {
                 winner.textContent = 'Computer wins';
+                computerScore++;
+                updateScore();
                 return;
             }
         }
@@ -70,9 +83,13 @@ const game = () => {
         if (playerChoice === 'paper') {
             if (computerChoice === 'scissors') {
                 winner.textContent = 'Computer Wins';
+                computerScore++;
+                updateScore();
                 return;
             } else {
                 winner.textContent = 'Player wins';
+                playerScore++;
+                updateScore();
                 return;
             }
         }
@@ -81,9 +98,13 @@ const game = () => {
         if (playerChoice === 'scissors') {
             if (computerChoice === 'rock') {
                 winner.textContent = 'Computer Wins';
+                computerScore++;
+                updateScore();
                 return;
             } else {
                 winner.textContent = 'Player wins';
+                playerScore++;
+                updateScore();
                 return;
             }
         }
