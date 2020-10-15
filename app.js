@@ -2,7 +2,6 @@ const game = () => {
     let playerScore = 0;
     let computerScore = 0; 
 
-
     // Start the game
     const startGame = () => {
         const playButton = document.querySelector('.intro button');
@@ -21,36 +20,48 @@ const game = () => {
         const choices = document.querySelectorAll('.options button');
         const playerHand = document.querySelector('.player-hand');
         const computerHand = document.querySelector('.computer-hand');
+        const hands = document.querySelectorAll('.hands img')
+
+        hands.forEach(hand => {
+            hand.addEventListener('animationend', function(){
+                this.style.animation = '';
+            })
+        })
 
         // Computer Options
-        const computerOptions = ['rock', 'paper', 'scissors'];
+        const computerRPSChoices = ['rock', 'paper', 'scissors'];
 
         choices.forEach(option => {
             option.addEventListener('click', function() {
 
                 // computer choice
                 const computerNumber = Math.floor(Math.random() * 3);
-                const computerChoice = computerOptions[computerNumber];
+                const computerChoice = computerRPSChoices[computerNumber];
 
-                // here is where we call compareChoices
-                compareChoices(this.textContent, computerChoice);
+                setTimeout(() => {
 
-                // Update Images
-                playerHand.src = `./assets/${this.textContent}.png`;
+                    // here is where we call compareChoices
+                    compareChoices(this.textContent, computerChoice);
 
-                computerHand.src = `./assets/${this.textContent}.png`
+                    // Update Images
+                    playerHand.src = `./assets/${this.textContent}.png`;
+                    computerHand.src = `./assets/${computerChoice}.png`;
 
+                }, 2000)
+
+                // animations
+                playerHand.style.animation = 'shakePlayer 2s ease';
+                computerHand.style.animation = 'shakeComputer 2s ease';
             })
         })
     }
 
     const updateScore = () => {
-        const playerWinCount = document.querySelector('.player-score');
-        const computerWinCount = document.querySelector('.computer-score');
+        const playerWinCount = document.querySelector('.player-score p');
+        const computerWinCount = document.querySelector('.computer-score p');
 
         playerWinCount.textContent = playerScore;
         computerWinCount.textContent = computerScore;
-
     }
 
     const compareChoices = (playerChoice, computerChoice) => {
@@ -67,12 +78,12 @@ const game = () => {
         // Check for a Rock
         if (playerChoice === 'rock') {
             if (computerChoice === 'scissors') {
-                winner.textContent = 'Player Wins';
+                winner.textContent = 'Player Wins!';
                 playerScore++;
                 updateScore();
                 return;
             } else {
-                winner.textContent = 'Computer wins';
+                winner.textContent = 'Computer wins!';
                 computerScore++;
                 updateScore();
                 return;
@@ -82,12 +93,12 @@ const game = () => {
         // Check for a Paper
         if (playerChoice === 'paper') {
             if (computerChoice === 'scissors') {
-                winner.textContent = 'Computer Wins';
+                winner.textContent = 'Computer Wins!';
                 computerScore++;
                 updateScore();
                 return;
             } else {
-                winner.textContent = 'Player wins';
+                winner.textContent = 'Player wins!';
                 playerScore++;
                 updateScore();
                 return;
@@ -97,12 +108,12 @@ const game = () => {
         // Check for a Scissors
         if (playerChoice === 'scissors') {
             if (computerChoice === 'rock') {
-                winner.textContent = 'Computer Wins';
+                winner.textContent = 'Computer Wins!';
                 computerScore++;
                 updateScore();
                 return;
             } else {
-                winner.textContent = 'Player wins';
+                winner.textContent = 'Player wins!';
                 playerScore++;
                 updateScore();
                 return;
