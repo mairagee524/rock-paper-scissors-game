@@ -20,7 +20,7 @@ const game = () => {
         const choices = document.querySelectorAll('.options button');
         const playerHand = document.querySelector('.player-hand');
         const computerHand = document.querySelector('.computer-hand');
-        const hands = document.querySelectorAll('.hands img')
+        const hands = document.querySelectorAll('.hands img');
 
         hands.forEach(hand => {
             hand.addEventListener('animationend', function(){
@@ -75,49 +75,16 @@ const game = () => {
             return; 
         }
 
-        // Check for a Rock
-        if (playerChoice === 'rock') {
-            if (computerChoice === 'scissors') {
-                winner.textContent = 'Player Wins!';
+        if ((playerChoice === 'rock' && computerChoice === 'scissors') || (playerChoice === 'paper' && computerChoice === 'scissors') || (playerChoice === 'scissors' && computerChoice === 'rock')) {
+            winner.textContent = 'You Win!';
                 playerScore++;
                 updateScore();
                 return;
-            } else {
-                winner.textContent = 'Computer wins!';
+        } else {
+            winner.textContent = 'Computer wins!';
                 computerScore++;
                 updateScore();
                 return;
-            }
-        }
-
-        // Check for a Paper
-        if (playerChoice === 'paper') {
-            if (computerChoice === 'scissors') {
-                winner.textContent = 'Computer Wins!';
-                computerScore++;
-                updateScore();
-                return;
-            } else {
-                winner.textContent = 'Player wins!';
-                playerScore++;
-                updateScore();
-                return;
-            }
-        }
-
-        // Check for a Scissors
-        if (playerChoice === 'scissors') {
-            if (computerChoice === 'rock') {
-                winner.textContent = 'Computer Wins!';
-                computerScore++;
-                updateScore();
-                return;
-            } else {
-                winner.textContent = 'Player wins!';
-                playerScore++;
-                updateScore();
-                return;
-            }
         }
     }
 
@@ -126,5 +93,4 @@ const game = () => {
     playGame();
 }
 
-// start the game function
 game();
